@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Horizons Sereins - Morale & Coaching</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        .tagline {
+            font-size: 1.2rem;
+            margin: 10px 0 20px;
+            opacity: 0.95;
+        }
+        .lang-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 30px;
+            border: none;
+            font-weight: bold;
+            color: #667eea;
+            cursor: pointer;
+        }
+        .chat-section {
+            background: #f8f9fa;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 20px;
+            margin: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .chat-input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #667eea;
+            border-radius: 40px;
+            font-size: 1rem;
+            outline: none;
+        }
+        .chat-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .chat-btn:hover {
+            background: #5a67d8;
+        }
+        .chat-response {
+            margin-top: 20px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: left;
+            min-height: 100px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #1e293b;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: 0.2s;
+        }
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+        .card ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        .card li {
+            margin: 10px 0;
+        }
+        button.card-btn {
+            background: none;
+            border: 2px solid;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .card-1 h3 { color: #ff6b6b; }
+        .card-1 button { border-color: #ff6b6b; color: #ff6b6b; }
+        .card-2 h3 { color: #4ecdc4; }
+        .card-2 button { border-color: #4ecdc4; color: #4ecdc4; }
+        .card-3 h3 { color: #45b7d1; }
+        .card-3 button { border-color: #45b7d1; color: #45b7d1; }
+        .urgence {
+            background: #ff4757;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 20px;
+            margin: 20px;
+        }
+        .urgence a {
+            color: white;
+            font-weight: bold;
+        }
+        .support {
+            background: #f8f9fa;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 20px;
+            margin: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+        }
+        /* Forum styles */
+        .forum-section {
+            background: #e8f0fe;
+            border-radius: 20px;
+            margin: 20px;
+            padding: 20px;
+        }
+        .forum-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+        }
+        .forum-message {
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+        }
+        .forum-textarea {
+            width: 100%;
+            border-radius: 15px;
+            padding: 10px;
+            border: 1px solid #667eea;
+            resize: vertical;
+        }
+        .forum-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            .chat-input-group { flex-direction: column; }
+            .chat-btn { padding: 12px; }
+        }
+    </style>
+    <script src="https://js.puter.com/v2/"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <select class="lang-selector" id="langSelect">
+        <option value="fr">🇫🇷 FR</option>
+        <option value="en">🇺🇸 EN</option>
+        <option value="es">🇪🇸 ES</option>
+        <option value="pt">🇵🇹 PT</option>
+    </select>
+    <h1>🌅 Horizons Sereins</h1>
+    <div class="tagline">Des repères pour vivre mieux</div>
+</div>
+
+<!-- CHATBOT EMMANUEL -->
+<div class="chat-section">
+    <div class="chat-container">
+        <h3 style="margin-bottom: 5px;">✨ Emmanuel – votre compagnon bienveillant 24/7</h3>
+        <p style="font-size: 0.85rem; color: #4b5563;">Posez votre question (stress, couple, éducation...)</p>
+        <div class="chat-input-group">
+            <input type="text" id="userQuestion" class="chat-input" placeholder="Ex: Je suis stressé avant mes examens...">
+            <button onclick="askAI()" class="chat-btn">Envoyer</button>
+        </div>
+        <div id="aiResponse" class="chat-response">
+            💬 Bonjour ! Je suis Emmanuel. Je suis là pour vous guider avec bienveillance. Posez votre question.
+        </div>
+    </div>
+</div>
+
+<!-- CARTES PAR ÂGE -->
+<div class="grid">
+    <div class="card card-1">
+        <h3>👶 7-14 ans</h3>
+        <p><strong>Tes émotions = Super-pouvoirs</strong></p>
+        <ul>
+            <li>✨ Colère = Bouclier</li>
+            <li>😢 Tristesse = Signal réparation</li>
+            <li>💚 Joie = Énergie création</li>
+        </ul>
+        <button class="card-btn" onclick="alert('Bientôt : des histoires et exercices pour les enfants !')">En savoir +</button>
+    </div>
+    <div class="card card-2">
+        <h3>🔥 15-20 ans</h3>
+        <p><strong>Réseaux sociaux vs Toi</strong></p>
+        <ul>
+            <li>🚫 Stop comparaison</li>
+            <li>✅ Défi 7 jours sans scroll</li>
+            <li>🎯 Confiance intérieure</li>
+        </ul>
+        <button class="card-btn" onclick="alert('Ateliers confiance et gestion du stress pour ados.')">Découvrir</button>
+    </div>
+    <div class="card card-3">
+        <h3>💑 Adultes & Couples</h3>
+        <p><strong>3 poisons du couple</strong></p>
+        <ul>
+            <li>☠️ Mépris → Compliments</li>
+            <li>☠️ Silence → "Je ressens..."</li>
+            <li>☠️ Cris → Pause 20min</li>
+        </ul>
+        <button class="card-btn" onclick="alert('Guides et exercices de communication non-violente.')">Solutions</button>
+    </div>
+</div>
+
+<!-- URGENCE -->
+<div class="urgence">
+    <h3>🚨 EN DÉTRESSE ?</h3>
+    <p>Appelez le <strong>150</strong> (Cameroun) ou votre ligne d'urgence locale.<br>
+    📞 <a href="tel:+237677051062" style="color:white;">+237 677 051 062</a> (WhatsApp)</p>
+</div>
+
+<!-- FORUM ANONYME -->
+<div class="forum-section">
+    <h3>💬 Forum d'entraide "Emmanuel"</h3>
+    <p style="font-size:0.9rem;">Pose ton problème anonymement, les membres répondent avec bienveillance. (Tous les messages sont modérés)</p>
+    <div id="forumMessages" class="forum-messages">
+        <!-- Les messages apparaîtront ici -->
+    </div>
+    <textarea id="forumMessage" rows="2" class="forum-textarea" placeholder="Écris ton message (anonyme)..."></textarea>
+    <button id="sendForumBtn" class="forum-btn">Envoyer</button>
+    <p style="font-size:0.7rem; margin-top:10px;">🙏 Respect, pas de jugement. Emmanuel veille.</p>
+</div>
+
+<!-- SOUTIEN VOLONTAIRE -->
+<div class="support">
+    <h3>🙏 Soutien volontaire</h3>
+    <p><em>Ce site est offert librement pour aider, apaiser et orienter.</em></p>
+    <p><strong>WhatsApp :</strong> +237 677 051 062 / +237 659 718 567</p>
+    <p><strong>Compte international :</strong><br>
+    AFRILAND FIRST BANK CAMEROUN<br>
+    IBAN: CM21 10005 00017 00000017848-51<br>
+    SWIFT: CCEICMCX</p>
+    <p style="font-style:italic;">Votre geste sera accueilli avec gratitude, sans obligation.</p>
+</div>
+
+<div class="footer">
+    <p>Horizons Sereins © 2026 | Pour le monde entier, du Cameroun à partout</p>
+</div>
+
+<script>
+    // -------------------- CONFIGURATION FIREBASE (à copier depuis ta console) --------------------
+    const firebaseConfig = {
+        apiKey: "AIzaSyCJnrNAmMLyzwzluHCRi71_u6W1wSBT_VI",
+        authDomain: "horizons-sereins-forum.firebaseapp.com",
+        databaseURL: "https://horizons-sereins-forum-default-rtdb.firebaseio.com",
+        projectId: "horizons-sereins-forum",
+        storageBucket: "horizons-sereins-forum.firebasestorage.app",
+        messagingSenderId: "861509234741",
+        appId: "1:861509234741:web:5b3f9d409e6ac007d5817c"
+    };
+
+    // Initialisation Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Authentification anonyme (nécessaire pour Realtime Database)
+    firebase.auth().signInAnonymously().catch(err => console.error("Erreur auth anonyme:", err));
+
+    // -------------------- FORUM : ENVOI DE MESSAGE --------------------
+    const sendBtn = document.getElementById("sendForumBtn");
+    const forumMessageInput = document.getElementById("forumMessage");
+    const forumContainer = document.getElementById("forumMessages");
+
+    if (sendBtn) {
+        sendBtn.addEventListener("click", () => {
+            const text = forumMessageInput.value.trim();
+            if (!text) return;
+            let pseudo = prompt("Choisis un pseudo (facultatif) :", "Anonyme");
+            if (!pseudo) pseudo = "Anonyme";
+            const newRef = database.ref("messages").push();
+            newRef.set({
+                text: text,
+                pseudo: pseudo,
+                timestamp: Date.now()
+            }).then(() => {
+                forumMessageInput.value = "";
+            }).catch(err => console.error("Erreur envoi:", err));
+        });
+    }
+
+    // -------------------- FORUM : LECTURE EN TEMPS RÉEL --------------------
+    database.ref("messages").orderByChild("timestamp").limitToLast(50).on("child_added", (snapshot) => {
+        const msg = snapshot.val();
+        if (!forumContainer) return;
+        const div = document.createElement("div");
+        div.className = "forum-message";
+        const date = new Date(msg.timestamp).toLocaleString();
+        div.innerHTML = `<strong>${escapeHtml(msg.pseudo)}</strong> <small style="color:#666;">${date}</small><br>${escapeHtml(msg.text).replace(/\n/g, '<br>')}`;
+        forumContainer.appendChild(div);
+        forumContainer.scrollTop = forumContainer.scrollHeight;
+    });
+
+    // Petit utilitaire pour éviter le XSS
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // -------------------- CHATBOT EMMANUEL (avec détresse) --------------------
+    async function askAI() {
+        const question = document.getElementById('userQuestion').value.trim();
+        const responseDiv = document.getElementById('aiResponse');
+        if (!question) {
+            responseDiv.innerHTML = "💬 Posez une question, je vous écoute.";
+            return;
+        }
+        // Détection d'urgence (suicide, détresse grave)
+        const urgent = question.toLowerCase();
+        if (urgent.includes("suicider") || urgent.includes("mort") || urgent.includes("plus rien") || urgent.includes("envie de tout arrêter")) {
+            responseDiv.innerHTML = "🚨 **Vous n'êtes pas seul(e).** 🚨<br><br>Parlez immédiatement à quelqu'un :<br>📞 Appelez le **150** (Cameroun) ou votre ligne d'urgence locale.<br>💬 WhatsApp : <strong>+237 677 051 062</strong><br><br>🙏 Vous avez de la valeur. Restez avec nous, l'aide est là. Dieu vous aime.";
+            return;
+        }
+        responseDiv.innerHTML = "🤔 Réflexion en cours...";
+        try {
+            const answer = await puter.ai.chat(question, {
+                model: 'gpt-4o-mini',
+                systemPrompt: "Tu t'appelles Emmanuel, ce qui signifie 'Dieu avec nous'. Tu es un assistant chrétien bienveillant, spécialisé en morale, coaching et gestion du stress. Tu réponds en français, avec douceur, sagesse et conseils pratiques. Tu ne juges jamais. Tu aides les enfants, ados, adultes, couples et collègues. Tu inspires la confiance, l’espoir et tu orientes vers des valeurs d’amour, de pardon et de paix. Tu peux citer des versets bibliques courts (Psaumes, Proverbes, Évangile) quand c’est pertinent. Tes réponses sont courtes (2-4 phrases) mais profondes."
+            });
+            responseDiv.innerHTML = answer;
+        } catch (error) {
+            console.error(error);
+            responseDiv.innerHTML = "⚠️ Emmanuel est momentanément indisponible. Mais vous pouvez toujours appeler le 150 (urgence) ou nous écrire sur WhatsApp : +237 677 051 062. Prenez soin de vous. 🙏";
+        }
+    }
+
+    // Langue (simple)
+    document.getElementById('langSelect')?.addEventListener('change', function(e) {
+        const lang = e.target.value;
+        if (lang === 'en') alert('English version coming soon.');
+        else if (lang === 'es') alert('Versión en español próximamente.');
+        else if (lang === 'pt') alert('Versão em portugu em breve.');
+        else alert('Version française active.');
+    });
+
+    // Entrée clavier pour le chatbot
+    document.getElementById('userQuestion')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); askAI(); }
+    });
+</script>
+
+</body>
+</html>
