@@ -3,67 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Examens & Maths – Mode examen, suivi par élève, 100+ questions</title>
+    <title>Examens & Maths – Mode examen + Suivi élève (version corrigée)</title>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
     <style>
+        /* (garde le même style que précédemment, ou copie depuis ton dernier message) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', 'Comic Neue', sans-serif;
-            background: linear-gradient(135deg, #fff7e8 0%, #e8f4fd 100%);
-            color: #2d3e2b;
-            padding: 1rem;
-            min-height: 100vh;
-        }
+        body { font-family: 'Segoe UI', 'Comic Neue', sans-serif; background: linear-gradient(135deg, #fff7e8 0%, #e8f4fd 100%); color: #2d3e2b; padding: 1rem; }
         .container { max-width: 1400px; margin: 0 auto; }
-        .header {
-            text-align: center;
-            background: linear-gradient(45deg, #fdebb3, #f4a261);
-            border-radius: 70px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(244,162,97,0.3);
-            position: relative;
-        }
-        h1 { font-size: 2rem; color: #c4450c; margin-bottom: 0.5rem; }
+        .header { text-align: center; background: linear-gradient(45deg, #fdebb3, #f4a261); border-radius: 70px; padding: 1.5rem; margin-bottom: 2rem; }
+        h1 { font-size: 2rem; color: #c4450c; }
         .slogan { background: #fff0cf; display: inline-block; border-radius: 60px; padding: 0.5rem 1.5rem; font-weight: bold; }
         .lang-bar, .user-bar { display: flex; justify-content: flex-end; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
-        .lang-btn, .user-btn { background: #ffd966; border: none; padding: 0.4rem 1.2rem; border-radius: 50px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+        .lang-btn, .user-btn { background: #ffd966; border: none; padding: 0.4rem 1.2rem; border-radius: 50px; cursor: pointer; font-weight: bold; }
         .lang-btn.active, .user-btn.active { background: #e67e22; color: white; }
         .main-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
         @media (max-width: 780px) { .main-grid { grid-template-columns: 1fr; } }
-        .card {
-            background: rgba(255,255,255,0.95);
-            border-radius: 32px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 2px solid #ffdd99;
-        }
+        .card { background: rgba(255,255,255,0.95); border-radius: 32px; padding: 1.5rem; margin-bottom: 1.5rem; border: 2px solid #ffdd99; }
         .card h2 { border-left: 8px solid #f4a261; padding-left: 1.2rem; margin-bottom: 1.2rem; color: #b64926; }
         .exam-buttons { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem; }
-        .exam-btn, .series-btn, .annales-btn {
-            background: #f7e5c2; border: none; padding: 0.6rem 1.2rem; border-radius: 50px;
-            font-weight: bold; cursor: pointer; transition: all 0.3s;
-        }
+        .exam-btn, .series-btn, .annales-btn { background: #f7e5c2; border: none; padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: bold; cursor: pointer; }
         .exam-btn.active, .series-btn.active, .annales-btn.active { background: linear-gradient(45deg, #f4a261, #e67e22); color: white; }
-        .generate-btn {
-            background: linear-gradient(45deg, #ffb347, #ff8c42); width: 100%; padding: 0.9rem;
-            border: none; border-radius: 60px; font-weight: bold; font-size: 1.1rem; margin: 1rem 0;
-            cursor: pointer;
-        }
-        .question-card {
-            background: rgba(255,255,255,0.9); border-radius: 28px; padding: 1.2rem; margin-bottom: 1.2rem;
-            border: 2px solid #ffe0b5;
-        }
+        .generate-btn { background: linear-gradient(45deg, #ffb347, #ff8c42); width: 100%; padding: 0.9rem; border: none; border-radius: 60px; font-weight: bold; font-size: 1.1rem; margin: 1rem 0; cursor: pointer; }
+        .question-card { background: rgba(255,255,255,0.9); border-radius: 28px; padding: 1.2rem; margin-bottom: 1.2rem; border: 2px solid #ffe0b5; }
         .question-text { background: linear-gradient(135deg, #fff7e0, #fff0cf); padding: 0.8rem; border-radius: 20px; margin-bottom: 0.8rem; }
-        .correction-btn, .feedback-btn {
-            background: linear-gradient(45deg, #c9e4c5, #a8d5a2); border: none; padding: 0.4rem 1rem;
-            border-radius: 40px; font-weight: bold; cursor: pointer; margin-right: 0.5rem;
-        }
-        .correction-area {
-            margin-top: 0.8rem; background: #fef4e8; border-radius: 24px;
-            padding: 1rem; display: none; border-left: 6px solid #2b7a4b;
-        }
+        .correction-btn, .feedback-btn { background: linear-gradient(45deg, #c9e4c5, #a8d5a2); border: none; padding: 0.4rem 1rem; border-radius: 40px; font-weight: bold; cursor: pointer; margin-right: 0.5rem; }
+        .correction-area { margin-top: 0.8rem; background: #fef4e8; border-radius: 24px; padding: 1rem; display: none; border-left: 6px solid #2b7a4b; }
         .correction-area.show { display: block; }
         .timer { font-size: 2rem; font-weight: bold; text-align: center; background: #2d3e2b; color: white; padding: 0.5rem; border-radius: 60px; margin-bottom: 1rem; }
         .exam-mode { background: #fff0cf; border: 3px solid #f4a261; }
@@ -79,7 +43,7 @@
 <div class="container">
     <div class="header">
         <h1>📚 Examens Maths 2026 – Mode examen + Suivi élève</h1>
-        <div class="slogan">🎯 100+ questions, annales, quiz, forum – 100% gratuit</div>
+        <div class="slogan">🎯 100+ questions, annales, forum – 100% gratuit</div>
     </div>
     <div class="user-bar">
         <span id="userDisplay" style="font-weight:bold;">Non connecté</span>
@@ -92,7 +56,6 @@
     </div>
 
     <div class="main-grid">
-        <!-- Colonne gauche -->
         <div>
             <div class="card">
                 <h2>📊 Mes Progrès</h2>
@@ -109,8 +72,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Colonne droite -->
         <div>
             <div class="card exam-mode">
                 <h2>⏱️ Mode examen (2h) – BEPC / Bac</h2>
@@ -148,14 +109,14 @@
 </div>
 
 <script>
-    // ================= BASE DE DONNÉES AMÉLIORÉE (100+ questions) =================
+    // ================= BASE DE DONNÉES CORRIGÉE =================
     const bank = {
         college: { defaultSeries: "default", questions: [] },
         bepc: { defaultSeries: "default", questions: [] },
-        probatoire: { series: { "Scientifique": [], "Littéraire": [], "Économique": [] }, questions: {} },
-        bac: { series: { "S": [], "C": [], "D": [] }, questions: {} }
+        probatoire: { series: { "Scientifique": [], "Littéraire": [], "Économique": [] }, questions: { "Scientifique": [], "Littéraire": [], "Économique": [] } },
+        bac: { series: { "S": [], "C": [], "D": [] }, questions: { "S": [], "C": [], "D": [] } }
     };
-    // Génération de 30 questions pour chaque niveau (pour dépasser 100 rapidement)
+    // Remplir les banques avec des questions variées
     for (let i = 1; i <= 30; i++) {
         bank.college.questions.push({ fr: { text: `Collège ${i} : Calculer ${i}+${i*2}`, answer: `${i + i*2}` }, en: { text: `Middle school ${i}: Compute ${i}+${i*2}`, answer: `${i + i*2}` } });
         bank.bepc.questions.push({ fr: { text: `BEPC ${i} : Résoudre x + ${i} = ${i+5}`, answer: `x = 5` }, en: { text: `BEPC ${i}: Solve x+${i}=${i+5}`, answer: `x=5` } });
@@ -177,7 +138,7 @@
         bac2025: { title: "Bac S 2025", questions: [{ fr: { text: "Ex1: ∫₀¹ x² dx", answer: "1/3" } }] }
     };
 
-    // ================= GESTION DES COMPTES ÉLÈVES =================
+    // Gestion comptes élèves (identique)
     let currentUser = null;
     function loadUsers() { return JSON.parse(localStorage.getItem("mathUsers")) || {}; }
     function saveUsers(users) { localStorage.setItem("mathUsers", JSON.stringify(users)); }
@@ -187,12 +148,8 @@
         let mdp = prompt("Mot de passe (laisse vide si nouveau compte) :");
         let users = loadUsers();
         if (users[pseudo]) {
-            if (users[pseudo].password === mdp) {
-                currentUser = pseudo;
-                alert(`Bienvenue ${pseudo} !`);
-                updateUserUI();
-                loadUserStats();
-            } else alert("Mot de passe incorrect");
+            if (users[pseudo].password === mdp) { currentUser = pseudo; alert(`Bienvenue ${pseudo} !`); updateUserUI(); loadUserStats(); }
+            else alert("Mot de passe incorrect");
         } else {
             users[pseudo] = { password: mdp || "", stats: [] };
             saveUsers(users);
@@ -208,58 +165,25 @@
         document.getElementById("loginBtn").style.display = currentUser ? "none" : "inline-block";
         document.getElementById("logoutBtn").style.display = currentUser ? "inline-block" : "none";
     }
-    function getUserStats() {
-        if (!currentUser) return [];
-        let users = loadUsers();
-        return users[currentUser]?.stats || [];
-    }
-    function saveUserStats(stats) {
-        if (!currentUser) return;
-        let users = loadUsers();
-        if (users[currentUser]) users[currentUser].stats = stats;
-        else users[currentUser] = { password: "", stats: stats };
-        saveUsers(users);
-    }
-    function addProgress(question, correct) {
-        if (!currentUser) return;
-        let stats = getUserStats();
-        stats.push({ question, correct, date: new Date().toISOString() });
-        if (stats.length > 500) stats = stats.slice(-500);
-        saveUserStats(stats);
-        loadUserStats();
-    }
+    function getUserStats() { if (!currentUser) return []; let users = loadUsers(); return users[currentUser]?.stats || []; }
+    function saveUserStats(stats) { if (!currentUser) return; let users = loadUsers(); if (users[currentUser]) users[currentUser].stats = stats; else users[currentUser] = { password: "", stats: stats }; saveUsers(users); }
+    function addProgress(question, correct) { if (!currentUser) return; let stats = getUserStats(); stats.push({ question, correct, date: new Date().toISOString() }); if (stats.length > 500) stats = stats.slice(-500); saveUserStats(stats); loadUserStats(); }
     function loadUserStats() {
         if (!currentUser) return;
         let stats = getUserStats();
-        let total = stats.length;
-        let success = stats.filter(s => s.correct).length;
-        let rate = total ? Math.round((success/total)*100) : 0;
-        document.getElementById("progressStats").innerHTML = `
-            <p>✅ Total questions : ${total}</p>
-            <p>🎯 Taux de réussite : ${rate}%</p>
-            <p>📅 Dernières : ${stats.slice(-3).reverse().map(s => s.correct ? '✅' : '❌').join(' ')}</p>
-        `;
+        let total = stats.length, success = stats.filter(s => s.correct).length, rate = total ? Math.round((success/total)*100) : 0;
+        document.getElementById("progressStats").innerHTML = `<p>✅ Total : ${total}</p><p>🎯 Taux : ${rate}%</p><p>📅 Dernières : ${stats.slice(-3).reverse().map(s => s.correct ? '✅' : '❌').join(' ')}</p>`;
     }
-    function resetUserStats() {
-        if (!currentUser) return;
-        if (confirm("Effacer toutes tes statistiques ?")) {
-            saveUserStats([]);
-            loadUserStats();
-        }
-    }
+    function resetUserStats() { if (!currentUser) return; if (confirm("Effacer toutes tes stats ?")) { saveUserStats([]); loadUserStats(); } }
 
-    // ================= MODE EXAMEN (2h, 10 questions) =================
-    let examActive = false;
-    let examTimer = null;
-    let examQuestions = [];
-    let examAnswers = [];
+    // Mode examen
+    let examActive = false, examTimer = null, examQuestions = [];
     function startExam() {
-        if (examActive) { alert("Un examen est déjà en cours !"); return; }
+        if (examActive) { alert("Examen déjà en cours"); return; }
         let pool = [...bank.bepc.questions, ...bank.college.questions.slice(0,5)];
         let shuffled = [...pool];
         for (let i = shuffled.length-1; i>0; i--) { let j = Math.floor(Math.random()*(i+1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
         examQuestions = shuffled.slice(0, 10);
-        examAnswers = new Array(10).fill("");
         examActive = true;
         let time = 2*3600;
         document.getElementById("examTimer").innerHTML = "02:00:00";
@@ -267,21 +191,12 @@
         examTimer = setInterval(() => {
             if (!examActive) return;
             time--;
-            let h = Math.floor(time/3600);
-            let m = Math.floor((time%3600)/60);
-            let s = time%60;
+            let h = Math.floor(time/3600), m = Math.floor((time%3600)/60), s = time%60;
             document.getElementById("examTimer").innerHTML = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-            if (time <= 0) { endExam(true); }
+            if (time <= 0) endExam(true);
         }, 1000);
-        let html = `<p style="margin-bottom:1rem;">📝 10 questions – Réponds dans les champs ci-dessous. Temps restant : 2h.</p>`;
-        examQuestions.forEach((q, idx) => {
-            html += `
-                <div class="question-card">
-                    <div class="question-text">${q.fr.text}</div>
-                    <textarea id="examAns${idx}" rows="2" style="width:100%; border-radius:20px; padding:0.5rem;" placeholder="Ta réponse..."></textarea>
-                </div>
-            `;
-        });
+        let html = `<p>📝 10 questions – Réponds ci-dessous.</p>`;
+        examQuestions.forEach((q, idx) => { html += `<div class="question-card"><div class="question-text">${q.fr.text}</div><textarea id="examAns${idx}" rows="2" style="width:100%; border-radius:20px; padding:0.5rem;" placeholder="Ta réponse..."></textarea></div>`; });
         document.getElementById("examQuestions").innerHTML = html;
         document.getElementById("startExamBtn").style.display = "none";
         document.getElementById("submitExamBtn").style.display = "block";
@@ -289,51 +204,37 @@
     }
     function endExam(forced) {
         if (!examActive) return;
-        if (examTimer) clearInterval(examTimer);
+        clearInterval(examTimer);
         examActive = false;
         let score = 0;
         for (let i = 0; i < examQuestions.length; i++) {
             let userAns = document.getElementById(`examAns${i}`)?.value.trim().toLowerCase() || "";
             let correct = examQuestions[i].fr.answer.toLowerCase();
-            if (userAns.includes(correct) || correct.includes(userAns)) {
-                score++;
-                if (currentUser) addProgress(examQuestions[i].fr.text, true);
-            } else {
-                if (currentUser) addProgress(examQuestions[i].fr.text, false);
-            }
+            if (userAns.includes(correct) || correct.includes(userAns)) { score++; if (currentUser) addProgress(examQuestions[i].fr.text, true); }
+            else { if (currentUser) addProgress(examQuestions[i].fr.text, false); }
         }
-        let total = examQuestions.length;
-        let percentage = Math.round((score/total)*100);
-        alert(forced ? "Temps écoulé !" : `Examen terminé. Score : ${score}/${total} (${percentage}%)`);
+        alert(forced ? "Temps écoulé !" : `Examen terminé. Score : ${score}/${examQuestions.length}`);
         document.getElementById("examQuestions").innerHTML = "";
         document.getElementById("startExamBtn").style.display = "block";
         document.getElementById("submitExamBtn").style.display = "none";
         if (currentUser) loadUserStats();
     }
 
-    // ================= GÉNÉRATEUR EXERCICES + ANNALES + FORUM (copie du précédent, adapté) =================
+    // Générateur exercices
     let currentLang = "fr", currentExam = "college", currentSeries = null, currentQuestions = [];
     function getQuestionPool() {
         if (currentExam === "probatoire" && currentSeries) return bank.probatoire.questions[currentSeries] || [];
         if (currentExam === "bac" && currentSeries) return bank.bac.questions[currentSeries] || [];
         return bank[currentExam]?.questions || [];
     }
-    function generateRandomQuestions() { let pool = getQuestionPool(); let shuffled = [...pool]; for (let i=shuffled.length-1;i>0;i--) { let j=Math.floor(Math.random()*(i+1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; } return shuffled.slice(0,5); }
+    function generateRandomQuestions() { let pool = getQuestionPool(); let shuffled = [...pool]; for (let i=shuffled.length-1;i>0;i--) { let j = Math.floor(Math.random()*(i+1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; } return shuffled.slice(0,5); }
     function renderExamGen() {
         let container = document.getElementById("examContainer");
         if (!currentQuestions.length) { container.innerHTML = "<p>Génère une épreuve</p>"; return; }
         let html = `<div><strong>${currentExam.toUpperCase()} ${currentSeries ? '- '+currentSeries : ''}</strong></div>`;
         currentQuestions.forEach((q, idx) => {
             let content = q[currentLang];
-            html += `
-                <div class="question-card">
-                    <div class="question-text">${content.text}</div>
-                    <button class="correction-btn-gen" data-idx="${idx}">🔍 Voir correction</button>
-                    <button class="feedback-btn-gen" data-idx="${idx}" data-correct="1">✅ Réussi</button>
-                    <button class="feedback-btn-gen" data-idx="${idx}" data-correct="0">❌ Échec</button>
-                    <div id="corr-gen-${idx}" class="correction-area"></div>
-                </div>
-            `;
+            html += `<div class="question-card"><div class="question-text">${content.text}</div><button class="correction-btn-gen" data-idx="${idx}">🔍 Voir correction</button><button class="feedback-btn-gen" data-idx="${idx}" data-correct="1">✅ Réussi</button><button class="feedback-btn-gen" data-idx="${idx}" data-correct="0">❌ Échec</button><div id="corr-gen-${idx}" class="correction-area"></div></div>`;
         });
         container.innerHTML = html;
         for (let i=0; i<currentQuestions.length; i++) {
@@ -371,7 +272,7 @@
     function displayAnnales(key) { let data = annalesData[key]; if (!data) return; let html = `<h3>${data.title}</h3>`; data.questions.forEach((q, idx) => { html += `<div class="question-card"><div class="question-text">${q.fr.text}</div><button class="correction-annales" data-idx="${idx}">🔍 Corrigé</button><div id="ann-corr-${idx}" class="correction-area"></div></div>`; }); document.getElementById("annalesContainer").innerHTML = html; for (let i=0;i<data.questions.length;i++) { let btn = document.querySelector(`.correction-annales[data-idx="${i}"]`); let div = document.getElementById(`ann-corr-${i}`); btn.onclick = () => { if (div.classList.contains("show")) { div.classList.remove("show"); btn.textContent="🔍 Corrigé"; } else { div.innerHTML = `<strong>✅ Corrigé :</strong><br> ${data.questions[i].fr.answer}`; div.classList.add("show"); btn.textContent="🙈 Masquer"; MathJax.typesetPromise([div]); } }; } MathJax.typesetPromise(); }
     function loadForum() { let msgs = JSON.parse(localStorage.getItem("forumMessages") || "[]"); document.getElementById("forumMessages").innerHTML = msgs.slice(0,30).map(m => `<div class="forum-message"><strong>${escapeHtml(m.pseudo)}</strong> <small>${m.date}</small><br>${escapeHtml(m.message)}</div>`).join('') || "<div>Aucun message</div>"; }
     function postForum() { let pseudo = document.getElementById("forumPseudo").value.trim() || "Anonyme"; let msg = document.getElementById("forumMsg").value.trim(); if(!msg) return; let msgs = JSON.parse(localStorage.getItem("forumMessages") || "[]"); msgs.unshift({pseudo, message: msg, date: new Date().toLocaleString()}); localStorage.setItem("forumMessages", JSON.stringify(msgs.slice(0,100))); loadForum(); document.getElementById("forumMsg").value = ""; }
-    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    function escapeHtml(str) { return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m] || m)); }
 
     // Événements
     document.getElementById("loginBtn").onclick = loginOrRegister;
